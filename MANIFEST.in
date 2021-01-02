@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include navya_dex *.css
+recursive-include navya_dex *.csv
+recursive-include navya_dex *.html
+recursive-include navya_dex *.ico
+recursive-include navya_dex *.js
+recursive-include navya_dex *.json
+recursive-include navya_dex *.md
+recursive-include navya_dex *.png
+recursive-include navya_dex *.py
+recursive-include navya_dex *.svg
+recursive-include navya_dex *.txt
+recursive-exclude navya_dex *.pyc
