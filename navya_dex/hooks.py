@@ -91,13 +91,11 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Task": {
+		"after_insert": "navya_dex.navya_dex_custom.add_employee_in_task"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
