@@ -141,3 +141,6 @@ doc_events = {
 #
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
 
+override_doctype_class = {
+	"Project": "navya_dex.navya_dex.custom.project.CustomProject"
+}
