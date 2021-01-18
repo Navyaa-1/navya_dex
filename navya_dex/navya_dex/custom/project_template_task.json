@@ -40,6 +40,7 @@
    "modified_by": "Administrator",
    "name": "Project Template Task-parent_task",
    "no_copy": 0,
+   "non_negative": 0,
    "options": "Task",
    "owner": "Administrator",
    "parent": null,
