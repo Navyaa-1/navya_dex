@@ -1,13 +1,6 @@
 from __future__ import unicode_literals
 import frappe
-from frappe import _
-from frappe.model.document import Document
-from six import iteritems
-from email_reply_parser import EmailReplyParser
-from frappe.utils import (flt, getdate, get_url, now,
-	nowtime, get_time, today, get_datetime, add_days)
-
-class DuplicationError(frappe.ValidationError): pass
+from frappe.utils import add_days
 from erpnext.projects.doctype.project.project import Project
 
 class CustomProject(Project):
@@ -29,15 +22,26 @@ class CustomProject(Project):
 
             # create tasks from template
             for task in template.tasks:
+                parent_task =None
+                if task.parent_task:
+                    pro_temp_task = frappe.get_doc("Project Template Task", task.parent_task)
+                    if pro_temp_task:
+                        pro_temp_task_sub = frappe.get_list("Task", filters={'subject': pro_temp_task.subject}, fields= 'name')
+                        if pro_temp_task_sub:
+                            parent_task = pro_temp_task_sub[0]['name']
                 frappe.get_doc(dict(
                     doctype='Task',
                     subject=task.subject,
                     project=self.name,
                     status='Open',
-                    parent_task=task.parent_task,
+                    parent_task=parent_task,
                     exp_start_date=add_days(self.expected_start_date, task.start),
                     exp_end_date=add_days(self.expected_start_date, task.start + task.duration),
                     description=task.description,
-                    task_weight=task.task_weight
-                )).insert()
+                    task_weight=task.task_weight,
+                    employee = task.employee,
+                    employee_name = task.employee_name
+                )).insert(ignore_mandatory = True)
+
+
 

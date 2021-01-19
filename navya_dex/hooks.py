@@ -93,7 +93,8 @@ app_license = "MIT"
 
 doc_events = {
 	"Task": {
-		"after_insert": "navya_dex.navya_dex_custom.add_employee_in_task"
+		"before_insert": "navya_dex.navya_dex_custom.validate_working_status",
+		"before_save": "navya_dex.navya_dex_custom.validate_working_status"
 	}
 }
 
@@ -142,5 +143,5 @@ doc_events = {
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
 
 override_doctype_class = {
-	"Project": "navya_dex.navya_dex.custom.project.CustomProject"
+	"Project": "navya_dex.navya_dex.project.CustomProject"
 }
