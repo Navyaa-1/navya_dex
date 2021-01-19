@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import frappe
-from frappe.utils import add_days
+from frappe.utils import today, add_days
 from erpnext.projects.doctype.project.project import Project
 
 class CustomProject(Project):
