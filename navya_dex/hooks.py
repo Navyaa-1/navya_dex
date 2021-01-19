@@ -93,8 +93,7 @@ app_license = "MIT"
 
 doc_events = {
 	"Task": {
-		"before_insert": "navya_dex.navya_dex_custom.validate_working_status",
-		"before_save": "navya_dex.navya_dex_custom.validate_working_status"
+		"validate": "navya_dex.navya_dex_custom.validate_working_status",
 	}
 }
 
