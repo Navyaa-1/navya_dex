@@ -17,11 +17,24 @@ def add_employee_in_task(doc, method):
 
 def validate_working_status(doc, method):
     if doc.get("__islocal"):
+        if doc.status in ["Working", "Completed"]:
+            if doc.depends_on:
+                for d_task in doc.depends_on:
+                    d_task_doc = frappe.get_doc("Task", d_task.task)
+                    if d_task_doc.status != "Completed":
+                        frappe.throw(_("Please Complete first Dependent Tasks!"))
+
         if doc.employee and doc.status == "Working":
             task_list = frappe.db.sql("""select name from `tabTask` where status = 'Working' and employee = %s""", (doc.employee), as_dict=True)
             if task_list:
                 frappe.throw(_("Only One task allow for WorKing at a time!"))
     else:
+        if doc.status in ["Working", "Completed"]:
+            if doc.depends_on:
+                for d_task in doc.depends_on:
+                    d_task_doc = frappe.get_doc("Task", d_task.task)
+                    if d_task_doc.status != "Completed":
+                        frappe.throw(_("Please Complete first Dependent Tasks!"))
         if doc.employee and doc.status == "Working":
             task_list = frappe.db.sql("""select name from `tabTask` where status = 'Working' and employee = %s and name != %s""", (doc.employee,doc.name), as_dict=True)
             if task_list:

@@ -22,14 +22,23 @@ class CustomProject(Project):
 
             # create tasks from template
             for task in template.tasks:
-                parent_task =None
+                parent_task = None
+                depends_task = None
                 if task.parent_task:
                     pro_temp_task = frappe.get_doc("Project Template Task", task.parent_task)
                     if pro_temp_task:
-                        pro_temp_task_sub = frappe.get_list("Task", filters={'subject': pro_temp_task.subject}, fields= 'name')
+                        pro_temp_task_sub = frappe.get_list("Task", filters={'subject': pro_temp_task.subject}, fields= 'name', order_by= 'creation desc',limit= 1)
                         if pro_temp_task_sub:
                             parent_task = pro_temp_task_sub[0]['name']
-                frappe.get_doc(dict(
+                if task.depends_on_task:
+                    pro_temp_task = frappe.get_doc("Project Template Task", task.depends_on_task)
+                    if pro_temp_task:
+                        pro_temp_task_dep = frappe.get_list("Task", filters={'subject': pro_temp_task.subject},
+                                                            fields='name', order_by='creation desc', limit=1)
+                        if pro_temp_task_dep:
+                            depends_on_task = pro_temp_task_dep[0]['name']
+                            depends_task = [dict(task= depends_on_task)]
+                task_id = frappe.get_doc(dict(
                     doctype='Task',
                     subject=task.subject,
                     project=self.name,
@@ -39,9 +48,12 @@ class CustomProject(Project):
                     exp_end_date=add_days(self.expected_start_date, task.start + task.duration),
                     description=task.description,
                     task_weight=task.task_weight,
-                    employee = task.employee,
-                    employee_name = task.employee_name
-                )).insert(ignore_mandatory = True)
+                    employee=task.employee,
+                    employee_name=task.employee_name,
+                    is_group=task.is_group,
+                    depends_on=depends_task
+                )).insert(ignore_mandatory=True)
+
 
 
 
