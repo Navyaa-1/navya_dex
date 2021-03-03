@@ -15,7 +15,7 @@ app_license = "MIT"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/navya_dex/css/navya_dex.css"
+app_include_css = "/assets/navya_dex/css/custom_css.css"
 # app_include_js = "/assets/navya_dex/js/navya_dex.js"
 
 # include js, css files in header of web template
