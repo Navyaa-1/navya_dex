@@ -46,6 +46,7 @@ class CustomProject(Project):
                     parent_task=parent_task,
                     exp_start_date=add_days(self.expected_start_date, task.start),
                     exp_end_date=add_days(self.expected_start_date, task.start + task.duration),
+                    expected_time=task.expected_duration_time,
                     description=task.description,
                     task_weight=task.task_weight,
                     employee=task.employee,
