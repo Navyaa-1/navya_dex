@@ -52,7 +52,7 @@ class CustomProject(Project):
                     employee=task.employee,
                     employee_name=task.employee_name,
                     is_group=task.is_group,
-		    item=self.project_attribute[0].item_code  if len(self.project_attribute)!=0 else None,
+		    item=self.project_attribute[0].item_code  if len(self.project_attribute)!=0 and else None,
                     depends_on=depends_task
                 )).insert(ignore_mandatory=True)
 

@@ -93,7 +93,7 @@ doctype_js = {"Project Template": "public/js/project_template.js"}
 
 doc_events = {
 	"Task": {
-		"validate": "navya_dex.navya_dex_custom.validate_working_status",
+		#"validate": "navya_dex.navya_dex_custom.validate_working_status",
 	}
 }
 
